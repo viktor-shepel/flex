@@ -1,7 +1,7 @@
 Summary: A tool for creating scanners (text pattern recognizers).
 Name: flex
 Version: 2.5.4a
-Release: 14
+Release: 15
 Copyright: GPL
 Group: Development/Tools
 Source: ftp://ftp.gnu.org/non-gnu/flex/flex-2.5.4a.tar.gz
@@ -59,6 +59,9 @@ rm -rf ${RPM_BUILD_ROOT}
 %{_includedir}/FlexLexer.h
 
 %changelog
+* Sun Jun 24 2001 Elliot Lee <sopwith@redhat.com>
+- Bump release + rebuild.
+
 * Sat Sep 30 2000 Bernhard Rosenkraenzer <bero@redhat.com>
 - Fix generation of broken code (conflicting isatty() prototype w/ glibc 2.2)
   This broke, among other things, the kdelibs 2.0 build
