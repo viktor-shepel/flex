@@ -1,7 +1,7 @@
 Summary: A tool for creating scanners (text pattern recognizers).
 Name: flex
 Version: 2.5.4a
-Release: 25
+Release: 26
 License: BSD
 Group: Development/Tools
 Source: ftp://ftp.gnu.org/non-gnu/flex/flex-2.5.4a.tar.gz
@@ -62,6 +62,9 @@ rm -rf ${RPM_BUILD_ROOT}
 %{_includedir}/FlexLexer.h
 
 %changelog
+* Fri Jun 21 2002 Tim Powers <timp@redhat.com>
+- automated rebuild
+
 * Tue Jun 18 2002 Than Ngo <than@redhat.com> 2.5.4a-25
 - don't forcibly strip binaries
 
