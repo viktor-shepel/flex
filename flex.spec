@@ -1,10 +1,9 @@
 Summary: A tool for creating scanners (text pattern recognizers).
 Name: flex
 Version: 2.5.4a
-Release: 32
+Release: 33
 License: BSD
 Group: Development/Tools
-Prefix: %{_prefix}
 BuildRoot: %{_tmppath}/%{name}-root
 
 Source: ftp://ftp.gnu.org/non-gnu/flex/flex-2.5.4a.tar.gz
@@ -15,7 +14,7 @@ Patch2: flex-2.5.4a-gcc3.patch
 Patch3: flex-2.5.4a-gcc31.patch
 Patch4: flex-2.5.4a2.patch
 
-BuildPrereq: autoconf
+BuildRequires: autoconf, byacc
 
 %description
 The flex program generates scanners.  Scanners are programs which can
@@ -68,6 +67,9 @@ rm -rf ${RPM_BUILD_ROOT}
 %{_includedir}/FlexLexer.h
 
 %changelog
+* Tue Aug 24 2004 Warren Togami <wtogami@redhat.com> 2.5.4a-33
+- #116407 BR byacc
+
 * Tue Jun 15 2004 Elliot Lee <sopwith@redhat.com>
 - rebuilt
 
