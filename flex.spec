@@ -1,16 +1,21 @@
 Summary: A tool for creating scanners (text pattern recognizers).
 Name: flex
 Version: 2.5.4a
-Release: 26
+Release: 29
 License: BSD
 Group: Development/Tools
+Prefix: %{_prefix}
+BuildRoot: %{_tmppath}/%{name}-root
+
 Source: ftp://ftp.gnu.org/non-gnu/flex/flex-2.5.4a.tar.gz
+
 Patch0: flex-2.5.4a-skel.patch
 Patch1: flex-2.5.4-glibc22.patch
 Patch2: flex-2.5.4a-gcc3.patch
 Patch3: flex-2.5.4a-gcc31.patch
-Prefix: %{_prefix}
-BuildRoot: %{_tmppath}/%{name}-root
+Patch4: flex-2.5.4a2.patch
+
+BuildPrereq: autoconf
 
 %description
 The flex program generates scanners.  Scanners are programs which can
@@ -32,6 +37,7 @@ application development.
 %patch1 -p1 -b .glibc22
 %patch2 -p1 -b .glib3
 %patch3 -p1 -b .gcc31
+%patch4 -p1 -b .yynoinput
 
 %build
 autoconf
@@ -58,10 +64,19 @@ rm -rf ${RPM_BUILD_ROOT}
 %doc COPYING NEWS README
 %{_bindir}/*
 %{_mandir}/man1/*
-%{_libdir}/*
+%{_libdir}/*.a
 %{_includedir}/FlexLexer.h
 
 %changelog
+* Wed Jan 22 2003 Tim Powers <timp@redhat.com>
+- rebuilt
+
+* Tue Jan  7 2003 Jeff Johnson <jbj@redhat.com> 2.5.4a-28
+- don't include -debuginfo files in package.
+
+* Mon Nov  4 2002 Than Ngo <than@redhat.com> 2.5.4a-27
+- YY_NO_INPUT patch from Jean Marie
+
 * Fri Jun 21 2002 Tim Powers <timp@redhat.com>
 - automated rebuild
 
