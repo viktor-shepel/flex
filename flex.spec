@@ -1,11 +1,12 @@
 Summary: A tool for creating scanners (text pattern recognizers).
 Name: flex
 Version: 2.5.4a
-Release: 11
+Release: 13
 Copyright: GPL
 Group: Development/Tools
-Source: ftp://ftp.gnu.org/pub/gnu/flex/flex-2.5.4a.tar.gz
+Source: ftp://ftp.gnu.org/non-gnu/flex/flex-2.5.4a.tar.gz
 Patch0: flex-2.5.4a-skel.patch
+Patch1: flex-2.5.4-glibc22.patch
 Prefix: %{_prefix}
 BuildRoot: /var/tmp/%{name}-root
 
@@ -26,6 +27,7 @@ application development.
 %prep
 %setup -q -n flex-2.5.4
 %patch0 -p1
+%patch1 -p1 -b .glibc22
 
 %build
 autoconf
@@ -38,11 +40,11 @@ rm -rf $RPM_BUILD_ROOT
 %makeinstall mandir=$RPM_BUILD_ROOT/%{_mandir}/man1
 
 ( cd ${RPM_BUILD_ROOT}
-  strip .%{_prefix}/bin/flex
-  ln -sf flex .%{_prefix}/bin/lex
+  strip .%{_bindir}/flex
+  ln -sf flex .%{_bindir}/lex
   ln -s flex.1 .%{_mandir}/man1/lex.1
   ln -s flex.1 .%{_mandir}/man1/flex++.1
-  ln -s libfl.a .%{_prefix}/lib/libl.a
+  ln -s libfl.a .%{_libdir}/libl.a
 )
 
 %clean
@@ -51,15 +53,20 @@ rm -rf ${RPM_BUILD_ROOT}
 %files
 %defattr(-,root,root)
 %doc COPYING NEWS README
-%{_prefix}/bin/lex
-%{_prefix}/bin/flex
-%{_prefix}/bin/flex++
+%{_bindir}/*
 %{_mandir}/man1/*
-%{_prefix}/lib/libl.a
-%{_prefix}/lib/libfl.a
-%{_prefix}/include/FlexLexer.h
+%{_libdir}/*
+%{_includedir}/FlexLexer.h
 
 %changelog
+* Sat Sep 30 2000 Bernhard Rosenkraenzer <bero@redhat.com>
+- Fix generation of broken code (conflicting isatty() prototype w/ glibc 2.2)
+  This broke, among other things, the kdelibs 2.0 build
+- Fix source URL
+
+* Thu Sep  7 2000 Jeff Johnson <jbj@redhat.com>
+- FHS packaging (64bit systems need to use libdir).
+
 * Wed Jul 12 2000 Prospector <bugzilla@redhat.com>
 - automatic rebuild
 
