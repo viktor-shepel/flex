@@ -1,14 +1,16 @@
 Summary: A tool for creating scanners (text pattern recognizers).
 Name: flex
 Version: 2.5.4a
-Release: 15
-Copyright: GPL
+Release: 22
+License: BSD
 Group: Development/Tools
 Source: ftp://ftp.gnu.org/non-gnu/flex/flex-2.5.4a.tar.gz
 Patch0: flex-2.5.4a-skel.patch
 Patch1: flex-2.5.4-glibc22.patch
+Patch2: flex-2.5.4a-gcc3.patch
+Patch3: flex-2.5.4a-gcc31.patch
 Prefix: %{_prefix}
-BuildRoot: /var/tmp/%{name}-root
+BuildRoot: %{_tmppath}/%{name}-root
 
 %description
 The flex program generates scanners.  Scanners are programs which can
@@ -25,9 +27,11 @@ You should install flex if you are going to use your system for
 application development.
 
 %prep
-%setup -q -n flex-2.5.4
+%setup -q -n %{name}-2.5.4
 %patch0 -p1
 %patch1 -p1 -b .glibc22
+%patch2 -p1 -b .gcc3
+%patch3 -p1 -b .gcc31
 
 %build
 autoconf
@@ -59,6 +63,27 @@ rm -rf ${RPM_BUILD_ROOT}
 %{_includedir}/FlexLexer.h
 
 %changelog
+* Tue Feb 26 2002 Than Ngo <than@redhat.com> 2.5.4a-22
+- rebuild in new enviroment
+
+* Wed Feb 20 2002 Bernhard Rosenkraenzer <bero@redhat.com> 2.5.4a-21
+- More ISO C++ 98 fixes (#59670)
+
+* Tue Feb 19 2002 Bernhard Rosenkraenzer <bero@redhat.com> 2.5.4a-20
+- Fix ISO C++ 98 compliance (#59670)
+
+* Wed Jan 23 2002 Than Ngo <than@redhat.com> 2.5.4a-19
+- fixed #58643
+
+* Wed Jan 09 2002 Tim Powers <timp@redhat.com>
+- automated rebuild
+
+* Tue Nov  6 2001 Than Ngo <than@redhat.com> 2.5.4a-17
+- fixed for working with gcc 3 (bug #55778)
+
+* Sat Oct 13 2001 Than Ngo <than@redhat.com> 2.5.4a-16
+- fix wrong License (bug #54574)
+
 * Sun Jun 24 2001 Elliot Lee <sopwith@redhat.com>
 - Bump release + rebuild.
 
