@@ -1,7 +1,7 @@
 Summary: A tool for creating scanners (text pattern recognizers).
 Name: flex
 Version: 2.5.4a
-Release: 13
+Release: 14
 Copyright: GPL
 Group: Development/Tools
 Source: ftp://ftp.gnu.org/non-gnu/flex/flex-2.5.4a.tar.gz
