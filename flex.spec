@@ -1,7 +1,7 @@
 Summary: A tool for creating scanners (text pattern recognizers).
 Name: flex
 Version: 2.5.4a
-Release: 23
+Release: 25
 License: BSD
 Group: Development/Tools
 Source: ftp://ftp.gnu.org/non-gnu/flex/flex-2.5.4a.tar.gz
@@ -44,7 +44,6 @@ rm -rf $RPM_BUILD_ROOT
 %makeinstall mandir=$RPM_BUILD_ROOT/%{_mandir}/man1
 
 ( cd ${RPM_BUILD_ROOT}
-  strip .%{_bindir}/flex
   ln -sf flex .%{_bindir}/lex
   ln -s flex.1 .%{_mandir}/man1/lex.1
   ln -s flex.1 .%{_mandir}/man1/flex++.1
@@ -63,6 +62,12 @@ rm -rf ${RPM_BUILD_ROOT}
 %{_includedir}/FlexLexer.h
 
 %changelog
+* Tue Jun 18 2002 Than Ngo <than@redhat.com> 2.5.4a-25
+- don't forcibly strip binaries
+
+* Thu May 23 2002 Tim Powers <timp@redhat.com>
+- automated rebuild
+
 * Tue Apr  2 2002 Than Ngo <than@redhat.com> 2.5.4a-23
 - More ISO C++ 98 fixes (#59670)
 
