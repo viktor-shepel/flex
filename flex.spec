@@ -1,7 +1,7 @@
 Summary: A tool for creating scanners (text pattern recognizers).
 Name: flex
 Version: 2.5.4a
-Release: 33
+Release: 34
 License: BSD
 Group: Development/Tools
 BuildRoot: %{_tmppath}/%{name}-root
@@ -55,6 +55,9 @@ rm -rf $RPM_BUILD_ROOT
   ln -s libfl.a .%{_libdir}/libl.a
 )
 
+%check
+make bigcheck
+
 %clean
 rm -rf ${RPM_BUILD_ROOT}
 
@@ -67,6 +70,10 @@ rm -rf ${RPM_BUILD_ROOT}
 %{_includedir}/FlexLexer.h
 
 %changelog
+* Sun Apr 10 2005 Jakub Jelinek <jakub@redhat.com> 2.5.4a-34
+- rebuilt with GCC 4
+- add %%check script
+
 * Tue Aug 24 2004 Warren Togami <wtogami@redhat.com> 2.5.4a-33
 - #116407 BR byacc
 
