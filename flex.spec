@@ -1,7 +1,7 @@
 Summary: A tool for creating scanners (text pattern recognizers).
 Name: flex
 Version: 2.5.4a
-Release: 34.2
+Release: 34.3
 License: BSD
 Group: Development/Tools
 BuildRoot: %{_tmppath}/%{name}-root
@@ -13,7 +13,7 @@ Patch1: flex-2.5.4-glibc22.patch
 Patch2: flex-2.5.4a-gcc3.patch
 Patch3: flex-2.5.4a-gcc31.patch
 Patch4: flex-2.5.4a2.patch
-
+Patch5: flex-pic.patch
 BuildRequires: autoconf, byacc
 
 %description
@@ -37,6 +37,7 @@ application development.
 %patch2 -p1 -b .glib3
 %patch3 -p1 -b .gcc31
 %patch4 -p1 -b .yynoinput
+%patch5 -p1 -b .pic
 
 %build
 autoconf
@@ -71,7 +72,8 @@ rm -rf ${RPM_BUILD_ROOT}
 
 %changelog
 * Sun Dec 18 2005 Jason Vas Dias<jvdias@redhat.com>
-* rebuilt
+* rebuild with 'flex-pic.patch' to enable -pie links
+  on x86_64 (patch from Jesse Keating) .
 
 * Fri Dec 09 2005 Jesse Keating <jkeating@redhat.com>
 - rebuilt
