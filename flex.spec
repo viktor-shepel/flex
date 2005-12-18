@@ -1,7 +1,7 @@
 Summary: A tool for creating scanners (text pattern recognizers).
 Name: flex
 Version: 2.5.4a
-Release: 34.1
+Release: 34.2
 License: BSD
 Group: Development/Tools
 BuildRoot: %{_tmppath}/%{name}-root
@@ -70,6 +70,9 @@ rm -rf ${RPM_BUILD_ROOT}
 %{_includedir}/FlexLexer.h
 
 %changelog
+* Sun Dec 18 2005 Jason Vas Dias<jvdias@redhat.com>
+* rebuilt
+
 * Fri Dec 09 2005 Jesse Keating <jkeating@redhat.com>
 - rebuilt
 
