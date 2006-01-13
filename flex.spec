@@ -1,19 +1,20 @@
 Summary: A tool for creating scanners (text pattern recognizers).
 Name: flex
 Version: 2.5.4a
-Release: 34.3
+Release: 35
 License: BSD
 Group: Development/Tools
+URL: http://www.gnu.org/software/flex/
 BuildRoot: %{_tmppath}/%{name}-root
-
 Source: ftp://ftp.gnu.org/non-gnu/flex/flex-2.5.4a.tar.gz
-
 Patch0: flex-2.5.4a-skel.patch
 Patch1: flex-2.5.4-glibc22.patch
 Patch2: flex-2.5.4a-gcc3.patch
 Patch3: flex-2.5.4a-gcc31.patch
 Patch4: flex-2.5.4a2.patch
 Patch5: flex-pic.patch
+Patch6: flex-2.5.4a2-std.patch
+Patch7: flex-2.5.4a2-warn.patch
 BuildRequires: autoconf, byacc
 
 %description
@@ -38,6 +39,8 @@ application development.
 %patch3 -p1 -b .gcc31
 %patch4 -p1 -b .yynoinput
 %patch5 -p1 -b .pic
+%patch6 -p1 -b .std
+%patch7 -p1 -b .warn
 
 %build
 autoconf
@@ -71,8 +74,13 @@ rm -rf ${RPM_BUILD_ROOT}
 %{_includedir}/FlexLexer.h
 
 %changelog
+* Fri Jan 13 2006 Petr Machata <pmachata@redhat.com> 2.5.4a-35
+- Adding `std::' prefixes, got rid of `using namespace std'. (#115354)
+- Dummy use of `yy_flex_realloc' to silent warnings. (#30943)
+- Adding URL of flex home page to spec (#142675)
+
 * Sun Dec 18 2005 Jason Vas Dias<jvdias@redhat.com>
-* rebuild with 'flex-pic.patch' to enable -pie links
+- rebuild with 'flex-pic.patch' to enable -pie links
   on x86_64 (patch from Jesse Keating) .
 
 * Fri Dec 09 2005 Jesse Keating <jkeating@redhat.com>
