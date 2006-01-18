@@ -1,7 +1,7 @@
 Summary: A tool for creating scanners (text pattern recognizers).
 Name: flex
 Version: 2.5.4a
-Release: 35
+Release: 36
 License: BSD
 Group: Development/Tools
 URL: http://www.gnu.org/software/flex/
@@ -15,6 +15,7 @@ Patch4: flex-2.5.4a2.patch
 Patch5: flex-pic.patch
 Patch6: flex-2.5.4a2-std.patch
 Patch7: flex-2.5.4a2-warn.patch
+Patch8: flex-2.5.4a2-shapwarn.patch
 BuildRequires: autoconf, byacc
 
 %description
@@ -41,6 +42,7 @@ application development.
 %patch5 -p1 -b .pic
 %patch6 -p1 -b .std
 %patch7 -p1 -b .warn
+%patch8 -p1 -b .shapwarn
 
 %build
 autoconf
@@ -74,6 +76,10 @@ rm -rf ${RPM_BUILD_ROOT}
 %{_includedir}/FlexLexer.h
 
 %changelog
+* Wed Jan 18 2006 Petr Machata <pmachata@redhat.com> 2.5.4a-36
+- Applying Jonathan S. Shapiro's bugfix-fixing patch. More std:: fixes
+  and better way to silent warnings under gcc.
+
 * Fri Jan 13 2006 Petr Machata <pmachata@redhat.com> 2.5.4a-35
 - Adding `std::' prefixes, got rid of `using namespace std'. (#115354)
 - Dummy use of `yy_flex_realloc' to silent warnings. (#30943)
