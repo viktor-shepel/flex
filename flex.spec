@@ -1,7 +1,7 @@
 Summary: A tool for creating scanners (text pattern recognizers).
 Name: flex
 Version: 2.5.4a
-Release: 36
+Release: 37
 License: BSD
 Group: Development/Tools
 URL: http://www.gnu.org/software/flex/
@@ -16,6 +16,7 @@ Patch5: flex-pic.patch
 Patch6: flex-2.5.4a2-std.patch
 Patch7: flex-2.5.4a2-warn.patch
 Patch8: flex-2.5.4a2-shapwarn.patch
+Patch9: flex-2.5.4a2-iniscan.patch
 BuildRequires: autoconf, byacc
 
 %description
@@ -43,11 +44,13 @@ application development.
 %patch6 -p1 -b .std
 %patch7 -p1 -b .warn
 %patch8 -p1 -b .shapwarn
+%patch9 -p1 -b .iniscan
 
 %build
 autoconf
 %configure
 make
+make bigcheck
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -76,6 +79,10 @@ rm -rf ${RPM_BUILD_ROOT}
 %{_includedir}/FlexLexer.h
 
 %changelog
+* Wed Feb 02 2006 Petr Machata <pmachata@redhat.com> 2.5.4a-37
+- adding `make bigcheck' into build process.  Refreshing initscan.c to
+  make this possible.
+
 * Wed Jan 18 2006 Petr Machata <pmachata@redhat.com> 2.5.4a-36
 - Applying Jonathan S. Shapiro's bugfix-fixing patch. More std:: fixes
   and better way to silent warnings under gcc.
