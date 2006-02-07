@@ -1,7 +1,7 @@
 Summary: A tool for creating scanners (text pattern recognizers).
 Name: flex
 Version: 2.5.4a
-Release: 37
+Release: 37.1
 License: BSD
 Group: Development/Tools
 URL: http://www.gnu.org/software/flex/
@@ -79,6 +79,9 @@ rm -rf ${RPM_BUILD_ROOT}
 %{_includedir}/FlexLexer.h
 
 %changelog
+* Tue Feb 07 2006 Jesse Keating <jkeating@redhat.com> - 2.5.4a-37.1
+- rebuilt for new gcc4.1 snapshot and glibc changes
+
 * Wed Feb 02 2006 Petr Machata <pmachata@redhat.com> 2.5.4a-37
 - adding `make bigcheck' into build process.  Refreshing initscan.c to
   make this possible.
