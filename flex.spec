@@ -1,7 +1,7 @@
 Summary: A tool for creating scanners (text pattern recognizers).
 Name: flex
 Version: 2.5.4a
-Release: 37.1
+Release: 37.2
 License: BSD
 Group: Development/Tools
 URL: http://www.gnu.org/software/flex/
@@ -79,6 +79,9 @@ rm -rf ${RPM_BUILD_ROOT}
 %{_includedir}/FlexLexer.h
 
 %changelog
+* Fri Feb 10 2006 Jesse Keating <jkeating@redhat.com> - 2.5.4a-37.2
+- bump again for double-long bug on ppc(64)
+
 * Tue Feb 07 2006 Jesse Keating <jkeating@redhat.com> - 2.5.4a-37.1
 - rebuilt for new gcc4.1 snapshot and glibc changes
 
