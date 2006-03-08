@@ -81,7 +81,7 @@ rm -rf ${RPM_BUILD_ROOT}
 %{_includedir}/FlexLexer.h
 
 %changelog
-* Fri Mar  8 2006 Petr Machata <pmachata@redhat.com> - 2.5.4a-37.4
+* Wed Mar  8 2006 Petr Machata <pmachata@redhat.com> - 2.5.4a-37.4
 - adding test for #183098 into build process
 
 * Fri Mar  2 2006 Petr Machata <pmachata@redhat.com> - 2.5.4a-37.3
