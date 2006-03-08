@@ -1,12 +1,13 @@
 Summary: A tool for creating scanners (text pattern recognizers).
 Name: flex
 Version: 2.5.4a
-Release: 37.3
+Release: 37.4
 License: BSD
 Group: Development/Tools
 URL: http://www.gnu.org/software/flex/
 BuildRoot: %{_tmppath}/%{name}-root
 Source: ftp://ftp.gnu.org/non-gnu/flex/flex-2.5.4a.tar.gz
+Source2: test-183098.sh
 Patch0: flex-2.5.4a-skel.patch
 Patch1: flex-2.5.4-glibc22.patch
 Patch2: flex-2.5.4a-gcc3.patch
@@ -51,6 +52,7 @@ autoconf
 %configure
 make
 make bigcheck
+sh %{SOURCE2}
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -64,8 +66,8 @@ rm -rf $RPM_BUILD_ROOT
   ln -s libfl.a .%{_libdir}/libl.a
 )
 
-%check
-make bigcheck
+#%check
+#make bigcheck
 
 %clean
 rm -rf ${RPM_BUILD_ROOT}
@@ -79,7 +81,10 @@ rm -rf ${RPM_BUILD_ROOT}
 %{_includedir}/FlexLexer.h
 
 %changelog
-* Fri Feb 10 2006 Petr Machata <pmachata@redhat.com> - 2.5.4a-37.3
+* Fri Mar  8 2006 Petr Machata <pmachata@redhat.com> - 2.5.4a-37.4
+- adding test for #183098 into build process
+
+* Fri Mar  2 2006 Petr Machata <pmachata@redhat.com> - 2.5.4a-37.3
 - rebuilt, no changes inside. In hunt for #183098
 
 * Fri Feb 10 2006 Jesse Keating <jkeating@redhat.com> - 2.5.4a-37.2
