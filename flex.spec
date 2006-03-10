@@ -84,7 +84,7 @@ rm -rf ${RPM_BUILD_ROOT}
 %{_includedir}/FlexLexer.h
 
 %changelog
-* Wed Mar  9 2006 Petr Machata <pmachata@redhat.com> - 2.5.4a-38
+* Fri Mar 10 2006 Petr Machata <pmachata@redhat.com> - 2.5.4a-38
 - Caught the real cause of #183098.  It failed because the parser
   built with `flex -f' *sometimes* made it into the final package, and
   -f assumes seven-bit tables.  Solution has two steps.  Move `make
