@@ -1,7 +1,7 @@
 Summary: A tool for creating scanners (text pattern recognizers).
 Name: flex
 Version: 2.5.4a
-Release: 37.4
+Release: 38
 License: BSD
 Group: Development/Tools
 URL: http://www.gnu.org/software/flex/
@@ -18,6 +18,7 @@ Patch6: flex-2.5.4a2-std.patch
 Patch7: flex-2.5.4a2-warn.patch
 Patch8: flex-2.5.4a2-shapwarn.patch
 Patch9: flex-2.5.4a2-iniscan.patch
+Patch10: flex-2.5.4a-Makefile.in.patch
 BuildRequires: autoconf, byacc
 
 %description
@@ -46,13 +47,12 @@ application development.
 %patch7 -p1 -b .warn
 %patch8 -p1 -b .shapwarn
 %patch9 -p1 -b .iniscan
+%patch10 -p1
 
 %build
 autoconf
 %configure
 make
-make bigcheck
-sh %{SOURCE2}
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -66,8 +66,11 @@ rm -rf $RPM_BUILD_ROOT
   ln -s libfl.a .%{_libdir}/libl.a
 )
 
-#%check
-#make bigcheck
+%check
+echo ============TESTING===============
+sh %{SOURCE2}
+make bigcheck
+echo ============END TESTING===========
 
 %clean
 rm -rf ${RPM_BUILD_ROOT}
@@ -81,6 +84,15 @@ rm -rf ${RPM_BUILD_ROOT}
 %{_includedir}/FlexLexer.h
 
 %changelog
+* Wed Mar  9 2006 Petr Machata <pmachata@redhat.com> - 2.5.4a-38
+- Caught the real cause of #183098.  It failed because the parser
+  built with `flex -f' *sometimes* made it into the final package, and
+  -f assumes seven-bit tables.  Solution has two steps.  Move `make
+  bigcheck' to `%%check' part, where it belongs anyway, so that flexes
+  built during `make bigcheck' don't overwrite original build.  And
+  change makefile so that `make bigcheck' will *always* execute *all*
+  check commands.
+
 * Wed Mar  8 2006 Petr Machata <pmachata@redhat.com> - 2.5.4a-37.4
 - adding test for #183098 into build process
 
