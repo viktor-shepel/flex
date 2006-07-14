@@ -1,13 +1,12 @@
 Summary: A tool for creating scanners (text pattern recognizers).
 Name: flex
 Version: 2.5.4a
-Release: 38.1
+Release: 39
 License: BSD
 Group: Development/Tools
 URL: http://www.gnu.org/software/flex/
 BuildRoot: %{_tmppath}/%{name}-root
 Source: ftp://ftp.gnu.org/non-gnu/flex/flex-2.5.4a.tar.gz
-Source2: test-183098.sh
 Patch0: flex-2.5.4a-skel.patch
 Patch1: flex-2.5.4-glibc22.patch
 Patch2: flex-2.5.4a-gcc3.patch
@@ -19,6 +18,7 @@ Patch7: flex-2.5.4a2-warn.patch
 Patch8: flex-2.5.4a2-shapwarn.patch
 Patch9: flex-2.5.4a2-iniscan.patch
 Patch10: flex-2.5.4a-Makefile.in.patch
+Patch11: flex-2.5.4a-posix.patch
 BuildRequires: autoconf, byacc
 
 %description
@@ -48,6 +48,7 @@ application development.
 %patch8 -p1 -b .shapwarn
 %patch9 -p1 -b .iniscan
 %patch10 -p1
+%patch11 -p1
 
 %build
 autoconf
@@ -68,7 +69,6 @@ rm -rf $RPM_BUILD_ROOT
 
 %check
 echo ============TESTING===============
-sh %{SOURCE2}
 make bigcheck
 echo ============END TESTING===========
 
@@ -84,6 +84,11 @@ rm -rf ${RPM_BUILD_ROOT}
 %{_includedir}/FlexLexer.h
 
 %changelog
+* Fri Jul 14 2006 Petr Machata <pmachata@redhat.com> - 2.5.4a-39
+- fileno is defined in posix standard, so adding #define _POSIX_SOURCE
+  to compile without warnings (#195687)
+- dropping 183098 test, since the original bug was already resolved
+
 * Wed Jul 12 2006 Jesse Keating <jkeating@redhat.com> - 2.5.4a-38.1
 - rebuild
 
