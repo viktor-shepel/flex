@@ -1,7 +1,7 @@
 Summary: A tool for creating scanners (text pattern recognizers).
 Name: flex
 Version: 2.5.4a
-Release: 39
+Release: 40%{?dist}
 License: BSD
 Group: Development/Tools
 URL: http://www.gnu.org/software/flex/
@@ -84,6 +84,9 @@ rm -rf ${RPM_BUILD_ROOT}
 %{_includedir}/FlexLexer.h
 
 %changelog
+* Sun Jul 16 2006 Petr Machata <pmachata@redhat.com> - 2.5.4a-40
+- using dist tag
+
 * Fri Jul 14 2006 Petr Machata <pmachata@redhat.com> - 2.5.4a-39
 - fileno is defined in posix standard, so adding #define _POSIX_SOURCE
   to compile without warnings (#195687)
