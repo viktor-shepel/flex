@@ -1,7 +1,7 @@
 Summary: A tool for creating scanners (text pattern recognizers).
 Name: flex
 Version: 2.5.4a
-Release: 40%{?dist}
+Release: 41%{?dist}
 License: BSD
 Group: Development/Tools
 URL: http://www.gnu.org/software/flex/
@@ -18,7 +18,7 @@ Patch7: flex-2.5.4a2-warn.patch
 Patch8: flex-2.5.4a2-shapwarn.patch
 Patch9: flex-2.5.4a2-iniscan.patch
 Patch10: flex-2.5.4a-Makefile.in.patch
-Patch11: flex-2.5.4a-posix.patch
+#Patch11: flex-2.5.4a-posix.patch
 BuildRequires: autoconf, byacc
 
 %description
@@ -48,7 +48,7 @@ application development.
 %patch8 -p1 -b .shapwarn
 %patch9 -p1 -b .iniscan
 %patch10 -p1
-%patch11 -p1
+#%patch11 -p1
 
 %build
 autoconf
@@ -84,6 +84,10 @@ rm -rf ${RPM_BUILD_ROOT}
 %{_includedir}/FlexLexer.h
 
 %changelog
+* Tue Jul 18 2006 Petr Machata <pmachata@redhat.com> - 2.5.4a-41
+- Reverting posix patch.  Imposing posix because of warning is too
+  much of a restriction.
+
 * Sun Jul 16 2006 Petr Machata <pmachata@redhat.com> - 2.5.4a-40
 - using dist tag
 
