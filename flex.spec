@@ -7,7 +7,9 @@ Group: Development/Tools
 URL: http://flex.sourceforge.net/
 Source: http://puzzle.dl.sourceforge.net/sourceforge/flex/flex-%{version}.tar.bz2
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
-BuildRequires: gettext info byacc
+BuildRequires: gettext info bison m4
+Requires(post): /sbin/install-info
+Requires(preun): /sbin/install-info
 
 %description
 The flex program generates scanners.  Scanners are programs which can
@@ -24,7 +26,7 @@ You should install flex if you are going to use your system for
 application development.
 
 %prep
-%setup -q -n flex-%{version}
+%setup -q
 
 %build
 %configure --disable-dependency-tracking
@@ -33,6 +35,7 @@ make
 %install
 rm -rf $RPM_BUILD_ROOT
 make DESTDIR=$RPM_BUILD_ROOT install
+rm -f $RPM_BUILD_ROOT/%{_infodir}/dir
 
 ( cd ${RPM_BUILD_ROOT}
   ln -sf flex .%{_bindir}/lex
@@ -47,8 +50,10 @@ make DESTDIR=$RPM_BUILD_ROOT install
 %post
 /sbin/install-info %{_infodir}/flex.info.gz --dir-file=%{_infodir}/dir ||:
 
-%postun
-/sbin/install-info --delete flex --dir-file=%{_infodir}/dir ||:
+%preun
+if [ $1 = 0 ]; then
+    /sbin/install-info --delete %{_infodir}/%{name}.info %{_infodir}/dir ||:
+fi
 
 %check
 echo ============TESTING===============
