@@ -1,25 +1,13 @@
 Summary: A tool for creating scanners (text pattern recognizers).
 Name: flex
-Version: 2.5.4a
-Release: 41%{?dist}
+Version: 2.5.33
+Release: 1%{?dist}
 License: BSD
 Group: Development/Tools
-URL: http://www.gnu.org/software/flex/
-BuildRoot: %{_tmppath}/%{name}-root
-Source: ftp://ftp.gnu.org/non-gnu/flex/flex-2.5.4a.tar.gz
-Patch0: flex-2.5.4a-skel.patch
-Patch1: flex-2.5.4-glibc22.patch
-Patch2: flex-2.5.4a-gcc3.patch
-Patch3: flex-2.5.4a-gcc31.patch
-Patch4: flex-2.5.4a2.patch
-Patch5: flex-pic.patch
-Patch6: flex-2.5.4a2-std.patch
-Patch7: flex-2.5.4a2-warn.patch
-Patch8: flex-2.5.4a2-shapwarn.patch
-Patch9: flex-2.5.4a2-iniscan.patch
-Patch10: flex-2.5.4a-Makefile.in.patch
-#Patch11: flex-2.5.4a-posix.patch
-BuildRequires: autoconf, byacc
+URL: http://flex.sourceforge.net/
+Source: http://puzzle.dl.sourceforge.net/sourceforge/flex/flex-%{version}.tar.bz2
+BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
+BuildRequires: gettext info byacc
 
 %description
 The flex program generates scanners.  Scanners are programs which can
@@ -36,40 +24,35 @@ You should install flex if you are going to use your system for
 application development.
 
 %prep
-%setup -q -n %{name}-2.5.4
-%patch0 -p1
-%patch1 -p1 -b .glibc22
-%patch2 -p1 -b .glib3
-%patch3 -p1 -b .gcc31
-%patch4 -p1 -b .yynoinput
-%patch5 -p1 -b .pic
-%patch6 -p1 -b .std
-%patch7 -p1 -b .warn
-%patch8 -p1 -b .shapwarn
-%patch9 -p1 -b .iniscan
-%patch10 -p1
-#%patch11 -p1
+%setup -q -n flex-%{version}
 
 %build
-autoconf
-%configure
+%configure --disable-dependency-tracking
 make
 
 %install
 rm -rf $RPM_BUILD_ROOT
-
-%makeinstall mandir=$RPM_BUILD_ROOT/%{_mandir}/man1
+make DESTDIR=$RPM_BUILD_ROOT install
 
 ( cd ${RPM_BUILD_ROOT}
   ln -sf flex .%{_bindir}/lex
+  ln -sf flex .%{_bindir}/flex++
   ln -s flex.1 .%{_mandir}/man1/lex.1
   ln -s flex.1 .%{_mandir}/man1/flex++.1
   ln -s libfl.a .%{_libdir}/libl.a
 )
 
+%find_lang flex
+
+%post
+/sbin/install-info %{_infodir}/flex.info.gz --dir-file=%{_infodir}/dir ||:
+
+%postun
+/sbin/install-info --delete flex --dir-file=%{_infodir}/dir ||:
+
 %check
 echo ============TESTING===============
-make bigcheck
+make check
 echo ============END TESTING===========
 
 %clean
@@ -82,8 +65,13 @@ rm -rf ${RPM_BUILD_ROOT}
 %{_mandir}/man1/*
 %{_libdir}/*.a
 %{_includedir}/FlexLexer.h
+%{_infodir}/flex.info*
+%{_datadir}/locale/*
 
 %changelog
+* Fri Jan 19 2007 Petr Machata <pmachata@redhat.com> - 2.5.33-1
+- Rebase to 2.5.33
+
 * Tue Jul 18 2006 Petr Machata <pmachata@redhat.com> - 2.5.4a-41
 - Reverting posix patch.  Imposing posix because of warning is too
   much of a restriction.
