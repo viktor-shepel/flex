@@ -1,12 +1,13 @@
 Summary: A tool for creating scanners (text pattern recognizers).
 Name: flex
 Version: 2.5.33
-Release: 1%{?dist}
+Release: 2%{?dist}
 License: BSD
 Group: Development/Tools
 URL: http://flex.sourceforge.net/
 Source: http://puzzle.dl.sourceforge.net/sourceforge/flex/flex-%{version}.tar.bz2
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
+Requires: m4
 BuildRequires: gettext info bison m4
 Requires(post): /sbin/install-info
 Requires(preun): /sbin/install-info
@@ -74,6 +75,9 @@ rm -rf ${RPM_BUILD_ROOT}
 %{_datadir}/locale/*
 
 %changelog
+* Tue Jan 30 2007 Petr Machata <pmachata@redaht.com> - 2.5.33-2
+- Add Requires:m4.
+
 * Fri Jan 19 2007 Petr Machata <pmachata@redhat.com> - 2.5.33-1
 - Rebase to 2.5.33
 
