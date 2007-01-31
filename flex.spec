@@ -1,11 +1,12 @@
 Summary: A tool for creating scanners (text pattern recognizers).
 Name: flex
 Version: 2.5.33
-Release: 2%{?dist}
+Release: 3%{?dist}
 License: BSD
 Group: Development/Tools
 URL: http://flex.sourceforge.net/
 Source: http://puzzle.dl.sourceforge.net/sourceforge/flex/flex-%{version}.tar.bz2
+Patch0: flex-2.5.33-pic.patch
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 Requires: m4
 BuildRequires: gettext info bison m4
@@ -28,6 +29,7 @@ application development.
 
 %prep
 %setup -q
+%patch0 -p1
 
 %build
 %configure --disable-dependency-tracking
@@ -75,6 +77,9 @@ rm -rf ${RPM_BUILD_ROOT}
 %{_datadir}/locale/*
 
 %changelog
+* Wed Jan 31 2007 Petr Machata <pmachata@redhat.com> - 2.5.33-3
+- Compile with -fPIC.
+
 * Tue Jan 30 2007 Petr Machata <pmachata@redaht.com> - 2.5.33-2
 - Add Requires:m4.
 
