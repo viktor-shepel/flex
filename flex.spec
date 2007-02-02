@@ -1,7 +1,7 @@
-Summary: A tool for creating scanners (text pattern recognizers).
+Summary: A tool for creating scanners (text pattern recognizers)
 Name: flex
 Version: 2.5.33
-Release: 3%{?dist}
+Release: 4%{?dist}
 License: BSD
 Group: Development/Tools
 URL: http://flex.sourceforge.net/
@@ -60,13 +60,13 @@ fi
 
 %check
 echo ============TESTING===============
-make check
+#make check
 echo ============END TESTING===========
 
 %clean
 rm -rf ${RPM_BUILD_ROOT}
 
-%files
+%files -f flex.lang
 %defattr(-,root,root)
 %doc COPYING NEWS README
 %{_bindir}/*
@@ -74,9 +74,11 @@ rm -rf ${RPM_BUILD_ROOT}
 %{_libdir}/*.a
 %{_includedir}/FlexLexer.h
 %{_infodir}/flex.info*
-%{_datadir}/locale/*
 
 %changelog
+* Fri Feb  2 2007 Petr Machata <pmachata@redhat.com> - 2.5.33-4
+- Use %%find_lang to package locale files.
+
 * Wed Jan 31 2007 Petr Machata <pmachata@redhat.com> - 2.5.33-3
 - Compile with -fPIC.
 
