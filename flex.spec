@@ -1,12 +1,13 @@
 Summary: A tool for creating scanners (text pattern recognizers)
 Name: flex
 Version: 2.5.33
-Release: 4%{?dist}
+Release: 5%{?dist}
 License: BSD
 Group: Development/Tools
 URL: http://flex.sourceforge.net/
-Source: http://puzzle.dl.sourceforge.net/sourceforge/flex/flex-%{version}.tar.bz2
+Source: flex-%{version}.tar.bz2
 Patch0: flex-2.5.33-pic.patch
+Patch1: flex-2.5.33-yy.patch
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 Requires: m4
 BuildRequires: gettext info bison m4
@@ -30,6 +31,7 @@ application development.
 %prep
 %setup -q
 %patch0 -p1
+%patch1 -p1
 
 %build
 %configure --disable-dependency-tracking
@@ -60,7 +62,7 @@ fi
 
 %check
 echo ============TESTING===============
-#make check
+make check
 echo ============END TESTING===========
 
 %clean
@@ -76,6 +78,9 @@ rm -rf ${RPM_BUILD_ROOT}
 %{_infodir}/flex.info*
 
 %changelog
+* Fri Mar 30 2007 Petr Machata <pmachata@redhat.com> - 2.5.33-5
+- Make yy-prefixed variables available to scanner even with -P.
+
 * Fri Feb  2 2007 Petr Machata <pmachata@redhat.com> - 2.5.33-4
 - Use %%find_lang to package locale files.
 
