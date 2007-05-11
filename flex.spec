@@ -1,13 +1,14 @@
 Summary: A tool for creating scanners (text pattern recognizers)
 Name: flex
 Version: 2.5.33
-Release: 5%{?dist}
+Release: 6%{?dist}
 License: BSD
 Group: Development/Tools
 URL: http://flex.sourceforge.net/
 Source: flex-%{version}.tar.bz2
 Patch0: flex-2.5.33-pic.patch
 Patch1: flex-2.5.33-yy.patch
+Patch2: flex-2.5.33-opts.patch
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 Requires: m4
 BuildRequires: gettext info bison m4
@@ -32,6 +33,7 @@ application development.
 %setup -q
 %patch0 -p1
 %patch1 -p1
+%patch2 -p1
 
 %build
 %configure --disable-dependency-tracking
@@ -78,6 +80,10 @@ rm -rf ${RPM_BUILD_ROOT}
 %{_infodir}/flex.info*
 
 %changelog
+* Fri May 11 2007 Petr Machata <pmachata@redhat.com> - 2.5.33-6
+- Allow joining short options into one commandline argument.
+- Resolves: #239695
+
 * Fri Mar 30 2007 Petr Machata <pmachata@redhat.com> - 2.5.33-5
 - Make yy-prefixed variables available to scanner even with -P.
 
