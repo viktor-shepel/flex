@@ -1,7 +1,7 @@
 Summary: A tool for creating scanners (text pattern recognizers)
 Name: flex
 Version: 2.5.33
-Release: 6%{?dist}
+Release: 7%{?dist}
 License: BSD
 Group: Development/Tools
 URL: http://flex.sourceforge.net/
@@ -80,7 +80,7 @@ rm -rf ${RPM_BUILD_ROOT}
 %{_infodir}/flex.info*
 
 %changelog
-* Fri May 11 2007 Petr Machata <pmachata@redhat.com> - 2.5.33-6
+* Fri May 11 2007 Petr Machata <pmachata@redhat.com> - 2.5.33-7
 - Allow joining short options into one commandline argument.
 - Resolves: #239695
 
