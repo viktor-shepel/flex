@@ -1,12 +1,13 @@
 diff -urp flex-2.5.33/flex.skl flex-2.5.33-pm/flex.skl
 --- flex-2.5.33/flex.skl	2006-02-16 23:20:43.000000000 +0100
 +++ flex-2.5.33-pm/flex.skl	2007-03-30 14:04:42.000000000 +0200
-@@ -54,6 +54,32 @@ m4_changequote([[, ]])
+@@ -54,6 +54,34 @@ m4_changequote([[, ]])
  %#   the generated scanner as a C-style comment. This is to aid those who
  %#   edit the skeleton.
  %#
 +
 +%not-for-header
++%if-c-only
 +%if-not-reentrant
 +m4_ifelse(M4_YY_PREFIX,yy,,
 +#define yy_create_buffer M4_YY_PREFIX[[_create_buffer]]
@@ -29,6 +30,7 @@ diff -urp flex-2.5.33/flex.skl flex-2.5.33-pm/flex.skl
 +#define yyfree M4_YY_PREFIX[[free]]
 +)
 +%endif
++%endif
 +%ok-for-header
 +
  #define FLEX_SCANNER
@@ -37,12 +39,13 @@ diff -urp flex-2.5.33/flex.skl flex-2.5.33-pm/flex.skl
 diff -urp flex-2.5.33/skel.c flex-2.5.33-pm/skel.c
 --- flex-2.5.33/skel.c	2006-02-21 03:45:41.000000000 +0100
 +++ flex-2.5.33-pm/skel.c	2007-03-30 14:04:43.000000000 +0200
-@@ -59,6 +59,32 @@ const char *skel[] = {
+@@ -59,6 +59,34 @@ const char *skel[] = {
    "%#   the generated scanner as a C-style comment. This is to aid those who",
    "%#   edit the skeleton.",
    "%#",
 +  "",
 +  "%not-for-header",
++  "%if-c-only",
 +  "%if-not-reentrant",
 +  "m4_ifelse(M4_YY_PREFIX,yy,,",
 +  "#define yy_create_buffer M4_YY_PREFIX[[_create_buffer]]",
@@ -64,6 +67,7 @@ diff -urp flex-2.5.33/skel.c flex-2.5.33-pm/skel.c
 +  "#define yyrealloc M4_YY_PREFIX[[realloc]]",
 +  "#define yyfree M4_YY_PREFIX[[free]]",
 +  ")",
++  "%endif",
 +  "%endif",
 +  "%ok-for-header",
 +  "",
