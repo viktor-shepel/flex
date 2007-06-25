@@ -1,7 +1,7 @@
 Summary: A tool for creating scanners (text pattern recognizers)
 Name: flex
 Version: 2.5.33
-Release: 8%{?dist}
+Release: 9%{?dist}
 License: BSD
 Group: Development/Tools
 URL: http://flex.sourceforge.net/
@@ -9,9 +9,10 @@ Source: flex-%{version}.tar.bz2
 Patch0: flex-2.5.33-pic.patch
 Patch1: flex-2.5.33-yy.patch
 Patch2: flex-2.5.33-opts.patch
+Patch3: flex-2.5.33-includedir.patch
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 Requires: m4
-BuildRequires: gettext info bison m4
+BuildRequires: gettext bison m4
 Requires(post): /sbin/install-info
 Requires(preun): /sbin/install-info
 
@@ -34,10 +35,11 @@ application development.
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
+%patch3 -p1
 
 %build
 %configure --disable-dependency-tracking
-make
+make %{?_smp_mflags}
 
 %install
 rm -rf $RPM_BUILD_ROOT
@@ -80,6 +82,11 @@ rm -rf ${RPM_BUILD_ROOT}
 %{_infodir}/flex.info*
 
 %changelog
+* Fri Jun 22 2007 Petr Machata <pmachata@redhat.com> - 2.5.33-9
+- Remove wrong use of @includedir@ in Makefile.in.
+- Spec cleanups.
+- Resolves: #225758
+
 * Fri Jun 22 2007 Petr Machata <pmachata@redhat.com> - 2.5.33-8
 - Don't emit yy-prefixed variables in C++ mode.  Thanks Srinivas Aji.
 - Resolves: #242742
