@@ -1,7 +1,7 @@
 Summary: A tool for creating scanners (text pattern recognizers)
 Name: flex
 Version: 2.5.33
-Release: 9%{?dist}
+Release: 10%{?dist}
 License: BSD
 Group: Development/Tools
 URL: http://flex.sourceforge.net/
@@ -82,6 +82,9 @@ rm -rf ${RPM_BUILD_ROOT}
 %{_infodir}/flex.info*
 
 %changelog
+* Wed Aug 29 2007 Fedora Release Engineering <rel-eng at fedoraproject dot org> - 2.5.33-10
+- Rebuild for selinux ppc32 issue.
+
 * Fri Jun 22 2007 Petr Machata <pmachata@redhat.com> - 2.5.33-9
 - Remove wrong use of @includedir@ in Makefile.in.
 - Spec cleanups.
