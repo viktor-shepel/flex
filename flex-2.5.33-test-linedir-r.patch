@@ -1,0 +1,14 @@
+diff -rup flex-2.5.33/tests/test-linedir-r/Makefile.am flex-2.5.33-pm/tests/test-linedir-r/Makefile.am
+--- flex-2.5.33/tests/test-linedir-r/Makefile.am	2003-03-26 19:29:45.000000000 +0100
++++ flex-2.5.33-pm/tests/test-linedir-r/Makefile.am	2007-08-30 12:28:09.000000000 +0200
+@@ -46,8 +46,8 @@ $(testname)$(EXEEXT): $(OBJS)
+ 
+ test: $(testname)$(EXEEXT)
+ 	./$(testname)$(EXEEXT) < $(srcdir)/test.input
+-	cat -n scanner.c | grep '#line' | grep scanner.c | awk -f $(srcdir)/check-lines.awk
+-	cat -n scanner.h | grep '#line' | grep scanner.h | awk -f $(srcdir)/check-lines.awk
++	cat -n scanner.c | grep '#line' | grep scanner.c | $(AWK) -f $(srcdir)/check-lines.awk
++	cat -n scanner.h | grep '#line' | grep scanner.h | $(AWK) -f $(srcdir)/check-lines.awk
+ 
+ .c.o:
+ 	$(CC) -c -o $@ $(AM_CPPFLAGS) $(CPPFLAGS) $(CFLAGS) $<

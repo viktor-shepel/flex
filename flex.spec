@@ -1,7 +1,7 @@
 Summary: A tool for creating scanners (text pattern recognizers)
 Name: flex
 Version: 2.5.33
-Release: 10%{?dist}
+Release: 11%{?dist}
 License: BSD
 Group: Development/Tools
 URL: http://flex.sourceforge.net/
@@ -10,9 +10,10 @@ Patch0: flex-2.5.33-pic.patch
 Patch1: flex-2.5.33-yy.patch
 Patch2: flex-2.5.33-opts.patch
 Patch3: flex-2.5.33-includedir.patch
+Patch4: flex-2.5.33-test-linedir-r.patch
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 Requires: m4
-BuildRequires: gettext bison m4
+BuildRequires: gettext bison m4 gawk
 Requires(post): /sbin/install-info
 Requires(preun): /sbin/install-info
 
@@ -36,6 +37,7 @@ application development.
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1
+%patch4 -p1
 
 %build
 %configure --disable-dependency-tracking
@@ -82,6 +84,10 @@ rm -rf ${RPM_BUILD_ROOT}
 %{_infodir}/flex.info*
 
 %changelog
+* Thu Aug 30 2007 Petr Machata <pmachata@redhat.com> - 2.5.33-11
+- Add BR gawk
+- Fix use of awk in one of the tests
+
 * Wed Aug 29 2007 Fedora Release Engineering <rel-eng at fedoraproject dot org> - 2.5.33-10
 - Rebuild for selinux ppc32 issue.
 
