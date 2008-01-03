@@ -1,7 +1,7 @@
 Summary: A tool for creating scanners (text pattern recognizers)
 Name: flex
 Version: 2.5.33
-Release: 11%{?dist}
+Release: 12%{?dist}
 License: BSD
 Group: Development/Tools
 URL: http://flex.sourceforge.net/
@@ -40,6 +40,7 @@ application development.
 %patch4 -p1
 
 %build
+./autogen.sh
 %configure --disable-dependency-tracking
 make %{?_smp_mflags}
 
@@ -84,6 +85,10 @@ rm -rf ${RPM_BUILD_ROOT}
 %{_infodir}/flex.info*
 
 %changelog
+* Thu Jan  3 2008 Petr Machata <pmachata@redhat.com> - 2.5.33-12
+- Run autogen.sh before the rest of the build.
+- Resolves: #426892
+
 * Thu Aug 30 2007 Petr Machata <pmachata@redhat.com> - 2.5.33-11
 - Add BR gawk
 - Fix use of awk in one of the tests
