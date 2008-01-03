@@ -13,7 +13,7 @@ Patch3: flex-2.5.33-includedir.patch
 Patch4: flex-2.5.33-test-linedir-r.patch
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 Requires: m4
-BuildRequires: gettext bison m4 gawk autoconf
+BuildRequires: gettext bison m4 gawk autoconf automake
 Requires(post): /sbin/install-info
 Requires(preun): /sbin/install-info
 
@@ -87,6 +87,7 @@ rm -rf ${RPM_BUILD_ROOT}
 %changelog
 * Thu Jan  3 2008 Petr Machata <pmachata@redhat.com> - 2.5.33-12
 - Run autogen.sh before the rest of the build.
+- Add BR autoconf automake.
 - Resolves: #426892
 
 * Thu Aug 30 2007 Petr Machata <pmachata@redhat.com> - 2.5.33-11
