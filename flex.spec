@@ -13,7 +13,7 @@ Patch3: flex-2.5.33-includedir.patch
 Patch4: flex-2.5.33-test-linedir-r.patch
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 Requires: m4
-BuildRequires: gettext bison m4 gawk
+BuildRequires: gettext bison m4 gawk autoconf
 Requires(post): /sbin/install-info
 Requires(preun): /sbin/install-info
 
