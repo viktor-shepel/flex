@@ -1,16 +1,16 @@
 Summary: A tool for creating scanners (text pattern recognizers)
 Name: flex
 Version: 2.5.33
-Release: 12%{?dist}
+Release: 13%{?dist}
 License: BSD
 Group: Development/Tools
 URL: http://flex.sourceforge.net/
 Source: flex-%{version}.tar.bz2
-Patch0: flex-2.5.33-pic.patch
 Patch1: flex-2.5.33-yy.patch
 Patch2: flex-2.5.33-opts.patch
 Patch3: flex-2.5.33-includedir.patch
 Patch4: flex-2.5.33-test-linedir-r.patch
+Patch5: flex-2.5.33-pic.patch
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 Requires: m4
 BuildRequires: gettext bison m4 gawk autoconf automake gettext-devel
@@ -33,14 +33,16 @@ application development.
 
 %prep
 %setup -q
-%patch0 -p1
 %patch1 -p1
 %patch2 -p1
 %patch3 -p1
 %patch4 -p1
+./autogen.sh
+# The -fPIC patch has to be applied after the build system is
+# re-generated.
+%patch5 -p1
 
 %build
-./autogen.sh
 %configure --disable-dependency-tracking
 make %{?_smp_mflags}
 
@@ -85,6 +87,9 @@ rm -rf ${RPM_BUILD_ROOT}
 %{_infodir}/flex.info*
 
 %changelog
+* Tue Jan  8 2008 Petr Machata <pmachata@redhat.com> - 2.5.33-13
+- Patch with -fPIC only after the autogen.sh is run.
+
 * Thu Jan  3 2008 Petr Machata <pmachata@redhat.com> - 2.5.33-12
 - Run autogen.sh before the rest of the build.
 - Add BR autoconf automake gettext-devel.
