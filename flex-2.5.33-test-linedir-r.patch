@@ -1,6 +1,6 @@
 diff -rup flex-2.5.33/tests/test-linedir-r/Makefile.am flex-2.5.33-pm/tests/test-linedir-r/Makefile.am
---- flex-2.5.33/tests/test-linedir-r/Makefile.am	2003-03-26 19:29:45.000000000 +0100
-+++ flex-2.5.33-pm/tests/test-linedir-r/Makefile.am	2007-08-30 12:28:09.000000000 +0200
+--- flex-2.5.33/tests/test-linedir-r/Makefile.in	2003-03-26 19:29:45.000000000 +0100
++++ flex-2.5.33-pm/tests/test-linedir-r/Makefile.in	2007-08-30 12:28:09.000000000 +0200
 @@ -46,8 +46,8 @@ $(testname)$(EXEEXT): $(OBJS)
  
  test: $(testname)$(EXEEXT)

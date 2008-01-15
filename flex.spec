@@ -1,7 +1,7 @@
 Summary: A tool for creating scanners (text pattern recognizers)
 Name: flex
 Version: 2.5.33
-Release: 14%{?dist}
+Release: 15%{?dist}
 License: BSD
 Group: Development/Tools
 URL: http://flex.sourceforge.net/
@@ -12,7 +12,7 @@ Patch3: flex-2.5.33-includedir.patch
 Patch4: flex-2.5.33-test-linedir-r.patch
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 Requires: m4
-BuildRequires: gettext bison m4 gawk autoconf automake gettext-devel
+BuildRequires: gettext bison m4
 Requires(post): /sbin/install-info
 Requires(preun): /sbin/install-info
 
@@ -36,7 +36,6 @@ application development.
 %patch2 -p1
 %patch3 -p1
 %patch4 -p1
-./autogen.sh
 
 %build
 %configure --disable-dependency-tracking CFLAGS="-fPIC $RPM_OPT_FLAGS"
@@ -83,6 +82,11 @@ rm -rf ${RPM_BUILD_ROOT}
 %{_infodir}/flex.info*
 
 %changelog
+* Tue Jan 15 2008 Stepan Kasal <skasal@redhat.com> - 2.5.33-15
+- Do not run autogen.sh, it undoes the effect of includedir patch.
+- Adapt test-linedir-r.patch so that it fixes Makefile.in and works
+  even though autogen.sh is not run.
+
 * Thu Jan 10 2008 Stepan Kasal <skasal@redhat.com> - 2.5.33-14
 - Insert the "-fPIC" on configure command-line.
 - Drop the -fPIC patch.
