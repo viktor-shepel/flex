@@ -1,7 +1,7 @@
 Summary: A tool for creating scanners (text pattern recognizers)
 Name: flex
 Version: 2.5.33
-Release: 15%{?dist}
+Release: 16%{?dist}
 License: BSD
 Group: Development/Tools
 URL: http://flex.sourceforge.net/
@@ -10,6 +10,7 @@ Patch1: flex-2.5.33-yy.patch
 Patch2: flex-2.5.33-opts.patch
 Patch3: flex-2.5.33-includedir.patch
 Patch4: flex-2.5.33-test-linedir-r.patch
+Patch5: flex-2.5.33-signedwarn.patch
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 Requires: m4
 BuildRequires: gettext bison m4
@@ -36,6 +37,7 @@ application development.
 %patch2 -p1
 %patch3 -p1
 %patch4 -p1
+%patch5 -p1
 
 %build
 %configure --disable-dependency-tracking CFLAGS="-fPIC $RPM_OPT_FLAGS"
@@ -82,6 +84,11 @@ rm -rf ${RPM_BUILD_ROOT}
 %{_infodir}/flex.info*
 
 %changelog
+* Mon Feb  4 2008 Petr Machata <pmachata@redhat.com> - 2.5.33-16
+- Fix comparison between signed and unsigned in generated scanner.
+  Patch by Roland McGrath.
+- Resolves: #431151
+
 * Tue Jan 15 2008 Stepan Kasal <skasal@redhat.com> - 2.5.33-15
 - Do not run autogen.sh, it undoes the effect of includedir patch.
 - Adapt test-linedir-r.patch so that it fixes Makefile.in and works
