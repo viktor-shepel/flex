@@ -1,0 +1,19 @@
+--- flex.skl	2008/02/09 15:49:48	2.211
++++ flex.skl	2008/02/09 18:54:56	2.212
+@@ -889,6 +889,8 @@
+ 
+ %endif
+ 
++%endif End reentrant structures and macros.
++
+ /* Accessor methods to globals.
+    These are made visible to non-reentrant scanners for convenience. */
+ 
+@@ -978,7 +980,6 @@
+     ]])
+ ]])
+ %endif
+-%endif End reentrant structures and macros.
+ 
+ /* Macros after this point can all be overridden by user definitions in
+  * section 1.
