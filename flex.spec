@@ -1,7 +1,7 @@
 Summary: A tool for creating scanners (text pattern recognizers)
 Name: flex
 Version: 2.5.35
-Release: 4%{?dist}
+Release: 5%{?dist}
 License: BSD
 Group: Development/Tools
 URL: http://flex.sourceforge.net/
@@ -78,7 +78,7 @@ rm -rf ${RPM_BUILD_ROOT}
 %{_infodir}/flex.info*
 
 %changelog
-* Mon Apr 20 2009 Debarshi Ray <rishi@fedoraproject.org> - 2.5.35-4
+* Mon Apr 20 2009 Debarshi Ray <rishi@fedoraproject.org> - 2.5.35-5
 - Resolves: #496548.
 
 * Tue Feb 24 2009 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 2.5.35-3
