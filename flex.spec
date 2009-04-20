@@ -1,12 +1,13 @@
 Summary: A tool for creating scanners (text pattern recognizers)
 Name: flex
 Version: 2.5.35
-Release: 3%{?dist}
+Release: 4%{?dist}
 License: BSD
 Group: Development/Tools
 URL: http://flex.sourceforge.net/
 Source: flex-%{version}.tar.bz2
 Patch0: flex-2.5.35-sign.patch
+Patch2: flex-2.5.35-gcc44.patch
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 Requires: m4
 BuildRequires: gettext bison m4
@@ -30,6 +31,7 @@ application development.
 %prep
 %setup -q
 %patch0 -p1
+%patch2 -p1
 
 %build
 %configure --disable-dependency-tracking CFLAGS="-fPIC $RPM_OPT_FLAGS"
@@ -76,6 +78,9 @@ rm -rf ${RPM_BUILD_ROOT}
 %{_infodir}/flex.info*
 
 %changelog
+* Mon Apr 20 2009 Debarshi Ray <rishi@fedoraproject.org> - 2.5.35-4
+- Resolves: #496548.
+
 * Tue Feb 24 2009 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 2.5.35-3
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_11_Mass_Rebuild
 
