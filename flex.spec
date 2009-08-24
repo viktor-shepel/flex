@@ -1,7 +1,7 @@
 Summary: A tool for creating scanners (text pattern recognizers)
 Name: flex
 Version: 2.5.35
-Release: 6%{?dist}
+Release: 7%{?dist}
 License: BSD
 Group: Development/Tools
 URL: http://flex.sourceforge.net/
@@ -55,11 +55,15 @@ rm -f $RPM_BUILD_ROOT/%{_infodir}/dir
 %find_lang flex
 
 %post
-/sbin/install-info %{_infodir}/flex.info.gz --dir-file=%{_infodir}/dir ||:
+if [ -f %{_infodir}/flex.info.gz ]; then # for --excludedocs
+   /sbin/install-info %{_infodir}/flex.info.gz --dir-file=%{_infodir}/dir ||:
+fi
 
 %preun
 if [ $1 = 0 ]; then
-    /sbin/install-info --delete %{_infodir}/%{name}.info %{_infodir}/dir ||:
+    if [ -f %{_infodir}/flex.info.gz ]; then # for --excludedocs
+	/sbin/install-info --delete %{_infodir}/%{name}.info.gz %{_infodir}/dir ||:
+    fi
 fi
 
 %check
@@ -80,6 +84,10 @@ rm -rf ${RPM_BUILD_ROOT}
 %{_infodir}/flex.info*
 
 %changelog
+* Mon Aug 24 2009 Petr Machata <pmachata@redhat.com> - 2.5.35-7
+- Fix installation with --excludedocs
+- Resolves: #515928
+
 * Fri Jul 24 2009 Fedora Release Engineering <rel-eng@lists.fedoraproject.org> - 2.5.35-6
 - Rebuilt for https://fedoraproject.org/wiki/Fedora_12_Mass_Rebuild
 
