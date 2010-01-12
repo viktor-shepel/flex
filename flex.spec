@@ -1,11 +1,11 @@
 Summary: A tool for creating scanners (text pattern recognizers)
 Name: flex
 Version: 2.5.35
-Release: 7%{?dist}
+Release: 8%{?dist}
 License: BSD
 Group: Development/Tools
 URL: http://flex.sourceforge.net/
-Source: flex-%{version}.tar.bz2
+Source: http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.bz2
 Patch0: flex-2.5.35-sign.patch
 Patch1: flex-2.5.35-hardening.patch
 Patch2: flex-2.5.35-gcc44.patch
@@ -84,6 +84,9 @@ rm -rf ${RPM_BUILD_ROOT}
 %{_infodir}/flex.info*
 
 %changelog
+* Tue Jan 12 2010 Petr Machata <pmachata@redhat.com> - 2.5.35-8
+- Add source URL
+
 * Mon Aug 24 2009 Petr Machata <pmachata@redhat.com> - 2.5.35-7
 - Fix installation with --excludedocs
 - Resolves: #515928
