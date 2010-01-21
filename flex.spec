@@ -1,7 +1,7 @@
 Summary: A tool for creating scanners (text pattern recognizers)
 Name: flex
 Version: 2.5.35
-Release: 8%{?dist}
+Release: 9%{?dist}
 License: BSD
 Group: Development/Tools
 URL: http://flex.sourceforge.net/
@@ -14,6 +14,14 @@ Requires: m4
 BuildRequires: gettext bison m4
 Requires(post): /sbin/install-info
 Requires(preun): /sbin/install-info
+
+# We need to pull in the static library package.  That's necessary so
+# that packages that just do BuildRequires: flex can still use -lfl.
+# I suspect that linking to -lfl is actually rare and those (few)
+# packages that do use it could be taught to require the sub-package
+# explicitly.  So at some point in future, this dependency may be
+# dropped.
+Requires: flex-static = %{version}
 
 %description
 The flex program generates scanners.  Scanners are programs which can
@@ -28,6 +36,18 @@ build process.
 
 You should install flex if you are going to use your system for
 application development.
+
+# We keep the libraries in separate sub-package to allow for multilib
+# installations of flex.
+%package static
+Summary: Libraries for flex scanner generator
+Group: Development/Tools
+
+%description static
+
+This package contains the library with default implementations of
+`main' and `yywrap' functions that the client binary can choose to use
+instead of implementing their own.
 
 %prep
 %setup -q
@@ -79,11 +99,17 @@ rm -rf ${RPM_BUILD_ROOT}
 %doc COPYING NEWS README
 %{_bindir}/*
 %{_mandir}/man1/*
-%{_libdir}/*.a
 %{_includedir}/FlexLexer.h
 %{_infodir}/flex.info*
 
+%files static
+%defattr(-,root,root)
+%{_libdir}/*.a
+
 %changelog
+* Wed Jan 20 2010 Petr Machata <pmachata@redhat.com> - 2.5.35-9
+- Move libraries into a sub-package of their own.
+
 * Tue Jan 12 2010 Petr Machata <pmachata@redhat.com> - 2.5.35-8
 - Add source URL
 
