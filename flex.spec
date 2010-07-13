@@ -1,7 +1,7 @@
 Summary: A tool for creating scanners (text pattern recognizers)
 Name: flex
 Version: 2.5.35
-Release: 9%{?dist}
+Release: 10%{?dist}
 License: BSD
 Group: Development/Tools
 URL: http://flex.sourceforge.net/
@@ -9,6 +9,7 @@ Source: http://downloads.sourceforge.net/%{name}/%{name}-%{version}.tar.bz2
 Patch0: flex-2.5.35-sign.patch
 Patch1: flex-2.5.35-hardening.patch
 Patch2: flex-2.5.35-gcc44.patch
+Patch3: flex-2.5.35-missing-prototypes.patch
 BuildRoot: %{_tmppath}/%{name}-%{version}-%{release}-root-%(%{__id_u} -n)
 Requires: m4
 BuildRequires: gettext bison m4
@@ -54,6 +55,7 @@ instead of implementing their own.
 %patch0 -p1
 %patch1 -p1
 %patch2 -p1
+%patch3 -p1
 
 %build
 %configure --disable-dependency-tracking CFLAGS="-fPIC $RPM_OPT_FLAGS"
@@ -107,6 +109,10 @@ rm -rf ${RPM_BUILD_ROOT}
 %{_libdir}/*.a
 
 %changelog
+* Tue Jul 13 2010 Petr Machata <pmachata@redhat.com> - 2.5.35-10
+- Declare yyget_column and yyset_column in reentrant mode.
+- Resolves: #612465
+
 * Wed Jan 20 2010 Petr Machata <pmachata@redhat.com> - 2.5.35-9
 - Move libraries into a sub-package of their own.
 
