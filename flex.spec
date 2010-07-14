@@ -1,7 +1,7 @@
 Summary: A tool for creating scanners (text pattern recognizers)
 Name: flex
 Version: 2.5.35
-Release: 10%{?dist}
+Release: 11%{?dist}
 License: BSD
 Group: Development/Tools
 URL: http://flex.sourceforge.net/
@@ -109,6 +109,10 @@ rm -rf ${RPM_BUILD_ROOT}
 %{_libdir}/*.a
 
 %changelog
+* Wed Jul 14 2010 Petr Machata <pmachata@redhat.com> - 2.5.35-11
+- Forgot that the changes in flex.skl won't propagate to skel.c
+- Resolves: #612465
+
 * Tue Jul 13 2010 Petr Machata <pmachata@redhat.com> - 2.5.35-10
 - Declare yyget_column and yyset_column in reentrant mode.
 - Resolves: #612465
